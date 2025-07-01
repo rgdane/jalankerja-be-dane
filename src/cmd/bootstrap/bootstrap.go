@@ -12,6 +12,7 @@ func InitApp() *container.AppContainer {
 	}
 
 	services := container.NewAppContainer()
+	// migrations.Migrate()
 
 	return services
 }
