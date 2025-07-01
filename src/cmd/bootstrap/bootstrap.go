@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"jk-api/internal/container"
 	"jk-api/internal/database/config"
+	"jk-api/internal/database/migrations"
 	"log"
 )
 
@@ -12,7 +13,7 @@ func InitApp() *container.AppContainer {
 	}
 
 	services := container.NewAppContainer()
-	// migrations.Migrate()
+	migrations.Migrate()
 
 	return services
 }
