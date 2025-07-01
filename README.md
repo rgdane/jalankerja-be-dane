@@ -1,6 +1,6 @@
 # JalanKerja Backend
 
-## Project Structure
+## Project Structures
 
 ```bash
 .
