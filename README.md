@@ -42,7 +42,7 @@
                 └── squad_service.go         # Business logic squad
 ```
 
-## Installations
+## Installationss
 
 1. Clone Repo
 
