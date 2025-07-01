@@ -6,11 +6,12 @@ import (
 	"log"
 )
 
-func InitApp() {
+func InitApp() *container.AppContainer {
 	if !config.PostgresInit() {
 		log.Fatal("❌ Failed to connect to Postgres SQL")
 	}
 
-	services := container.NewServiceContainer()
-	services.RegisterControllers()
+	services := container.NewAppContainer()
+
+	return services
 }

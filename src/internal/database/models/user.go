@@ -17,8 +17,6 @@ type User struct {
 	UpdatedAt       time.Time      `json:"updated_at"`
 	CustomFields    datatypes.JSON `json:"custom_fields"`
 	AvatarURL       *string        `gorm:"column:avatar_url;size:255" json:"avatar_url,omitempty"`
-
-	HasProjects []GeneralProjectUser `gorm:"foreignKey:UserID" json:"has_projects"`
 }
 
 func (User) TableName() string {

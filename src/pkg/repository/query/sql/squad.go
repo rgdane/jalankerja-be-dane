@@ -21,25 +21,25 @@ func (repo *squadRepository) WithTx(tx *gorm.DB) sql.SquadRepository {
 	return &squadRepository{db: tx}
 }
 
-func (repo *squadRepository) InsertSquad(squad *models.Squad) (*models.Squad, error) {
-	if err := repo.db.Create(squad).Error; err != nil {
+func (repo *squadRepository) InsertSquad(data *models.Squad) (*models.Squad, error) {
+	if err := repo.db.Create(data).Error; err != nil {
 		return nil, err
 	}
-	return squad, nil
+	return data, nil
 }
 
-func (repo *squadRepository) UpdateSquads(squad *models.Squad) (*models.Squad, error) {
-	if err := repo.db.Save(squad).Error; err != nil {
+func (repo *squadRepository) UpdateSquads(data *models.Squad) (*models.Squad, error) {
+	if err := repo.db.Save(data).Error; err != nil {
 		return nil, err
 	}
-	return squad, nil
+	return data, nil
 }
 
-func (repo *squadRepository) RemoveSquad(squad *models.Squad) (*models.Squad, error) {
-	if err := repo.db.Delete(squad).Error; err != nil {
+func (repo *squadRepository) RemoveSquad(data *models.Squad) (*models.Squad, error) {
+	if err := repo.db.Delete(data).Error; err != nil {
 		return nil, err
 	}
-	return squad, nil
+	return data, nil
 }
 
 func (repo *squadRepository) RemoveSquadByID(id int64) error {
@@ -61,4 +61,3 @@ func (repo *squadRepository) FindSquadByID(id int64) (*models.Squad, error) {
 	}
 	return &item, nil
 }
-		

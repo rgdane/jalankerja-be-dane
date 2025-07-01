@@ -16,7 +16,7 @@ type UpdateSquadDto struct {
 	Name *string `json:"name"`
 }
 
-// SquadDetail represents a detailed view of Squad with related data.
-type SquadDetail struct {
+// SquadResponseDto represents a detailed view of Squad with related data.
+type SquadResponseDto struct {
 	models.Squad
 }

@@ -13,8 +13,6 @@ type Squad struct {
 	Anggota          datatypes.JSON `gorm:"type:json" json:"anggota"`
 	CreatedAt        time.Time      `gorm:"column:created_at" json:"created_at,omitempty"`
 	UpdatedAt        time.Time      `gorm:"column:updated_at;autoUpdateTime" json:"updated_at"`
-
-	HasProject *GeneralProject `gorm:"foreignKey:GeneralProjectID;constraint:OnDelete:CASCADE,OnUpdate:NO ACTION" json:"projects"`
 }
 
 func (Squad) TableName() string {

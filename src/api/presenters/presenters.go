@@ -9,6 +9,13 @@ func SuccessResponse(c *fiber.Ctx, data any) error {
 	})
 }
 
+func SuccessCreatedResponse(c *fiber.Ctx, data any) error {
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"success": true,
+		"data":    data,
+	})
+}
+
 func ErrorResponse(c *fiber.Ctx, status int, err error) error {
 	return c.Status(status).JSON(fiber.Map{
 		"success": false,

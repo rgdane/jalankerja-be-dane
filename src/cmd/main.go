@@ -12,6 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 )
 
@@ -31,8 +32,6 @@ func main() {
 	log.SetOutput(os.Stdout)
 	log.SetLevel(logrus.InfoLevel)
 
-	bootstrap.InitApp()
-
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
@@ -51,7 +50,8 @@ func main() {
 		return c.SendString("🚀 Welcome to Fiber! Use prefix '/api' for API routes.")
 	})
 
-	routes.Setup(app)
+	services := bootstrap.InitApp()
+	routes.Setup(app, services)
 
 	for _, r := range app.Stack() {
 		for _, route := range r {
@@ -59,8 +59,15 @@ func main() {
 		}
 	}
 
-	log.Info("🚀 Starting Fiber server on http://localhost:5000")
-	if err := app.Listen(":5000"); err != nil {
-		log.WithError(err).Fatal(err)
+	_ = godotenv.Load()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5000"
 	}
+
+	log.Infof("🚀 Starting Fiber server on http://localhost:%s", port)
+	if err := app.Listen(":" + port); err != nil {
+		panic(err)
+	}
+
 }
