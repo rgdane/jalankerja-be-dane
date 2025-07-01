@@ -81,6 +81,8 @@ App run on <http://localhost:5000>
 
 ## Flow
 
+![Flow Diagram](https://jam.dev/cdn-cgi/image/width=800,quality=100,dpr=1/https://cdn-jam-screenshots.jam.dev/4bee731580457b0e55664da35511cc00/screenshot/da869424-f1e0-4435-a921-c790171b9c9d.png)
+
 ## Using Generator
 
 1. Masuk `src` directory
