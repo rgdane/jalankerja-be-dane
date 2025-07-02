@@ -1,4 +1,3 @@
-
 package routes
 
 import (
@@ -9,5 +8,7 @@ import (
 
 func Setup(app *fiber.App, c *container.AppContainer) {
 	api := app.Group("/api/v1")
+	ProjectRoutes(api, c)
 	SquadRoutes(api, c)
+	UserRoutes(api, c)
 }

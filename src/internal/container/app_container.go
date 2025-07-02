@@ -5,11 +5,15 @@ import (
 )
 
 type AppContainer struct {
-	SquadHandler *handlers.SquadHandler
+	ProjectHandler *handlers.ProjectHandler
+	SquadHandler   *handlers.SquadHandler
+	UserHandler    *handlers.UserHandler
 }
 
 func NewAppContainer() *AppContainer {
 	return &AppContainer{
-		SquadHandler: InitSquadContainer(),
+		ProjectHandler: InitProjectContainer(),
+		SquadHandler:   InitSquadContainer(),
+		UserHandler:    InitUserContainer(),
 	}
 }

@@ -11,5 +11,9 @@ import (
 func InitSquadContainer() *handlers.SquadHandler {
 	repo := sql.NewSquadRepository()
 	service := services.NewSquadService(repo)
-	return handlers.NewSquadHandler(service)
+
+	projectSquadRepo := sql.NewProjectSquadRepository()
+	projectSquadService := services.NewProjectSquadService(projectSquadRepo)
+
+	return handlers.NewSquadHandler(service, projectSquadService)
 }

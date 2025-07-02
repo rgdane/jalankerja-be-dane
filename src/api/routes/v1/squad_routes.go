@@ -13,6 +13,7 @@ func SquadRoutes(router fiber.Router, c *container.AppContainer) {
 	app := router.Group("squads")
 
 	app.Get("/", controllers.GetSquads(c))
+	app.Get("/:id", controllers.GetSquadByID(c))
 	app.Post("/", controllers.CreateSquads(c))
 	app.Put("/:id", controllers.UpdateSquads(c))
 	app.Delete("/:id", controllers.DeleteSquads(c))

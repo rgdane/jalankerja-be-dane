@@ -8,12 +8,15 @@ import (
 
 // CreateSquadDto is used when creating a new Squad.
 type CreateSquadDto struct {
-	Name string `json:"name"`
+	Name      string `json:"name"`
+	ProjectID *int64 `json:"project_id"`
 }
 
 // UpdateSquadDto is used when updating an existing Squad.
 type UpdateSquadDto struct {
-	Name *string `json:"name"`
+	Name        *string `json:"name"`
+	Description *string `json:"description"`
+	Captain     *int64  `json:"captain"`
 }
 
 // SquadResponseDto represents a detailed view of Squad with related data.

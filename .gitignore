@@ -1,2 +1,4 @@
 src/main
 cli
+src/generator
+src/generator.exe

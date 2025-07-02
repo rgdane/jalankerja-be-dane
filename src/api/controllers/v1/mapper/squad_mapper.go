@@ -19,6 +19,26 @@ func CreateSquadDtoToModel(dto *dto.CreateSquadDto) (*models.Squad, error) {
 	return data, nil
 }
 
+func UpdateSquadDtoToModel(dto *dto.UpdateSquadDto) (map[string]interface{}, error) {
+	if dto == nil {
+		return nil, nil
+	}
+
+	updates := map[string]interface{}{}
+
+	if dto.Name != nil {
+		updates["name"] = *dto.Name
+	}
+	if dto.Description != nil {
+		updates["description"] = *dto.Description
+	}
+	if dto.Captain != nil {
+		updates["captain"] = *dto.Captain
+	}
+
+	return updates, nil
+}
+
 func SquadModelToResponseDto(data *models.Squad) (*dto.SquadResponseDto, error) {
 	if data == nil {
 		return nil, nil

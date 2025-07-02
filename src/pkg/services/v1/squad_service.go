@@ -1,9 +1,10 @@
 package services
 
 import (
-	"errors"
+	"fmt"
 	"jk-api/internal/database/config"
 	"jk-api/internal/database/models"
+	"jk-api/internal/errors/gorm_err"
 	"jk-api/pkg/repository/adapter/sql"
 	"time"
 
@@ -14,7 +15,7 @@ type SquadService interface {
 	WithTx(tx *gorm.DB) SquadService
 
 	CreateSquad(input *models.Squad) (*models.Squad, error)
-	UpdateSquad(id int64, input *models.Squad) (*models.Squad, error)
+	UpdateSquad(id int64, updates map[string]interface{}) (*models.Squad, error)
 	DeleteSquad(id int64) error
 	GetAllSquads() ([]models.Squad, error)
 	GetSquadByID(id int64) (*models.Squad, error)
@@ -48,34 +49,49 @@ func (s *squadService) CreateSquad(input *models.Squad) (*models.Squad, error) {
 	input.CreatedAt = time.Now()
 	input.UpdatedAt = time.Now()
 
-	return s.repo.InsertSquad(input)
+	data, err := s.repo.InsertSquad(input)
+	if err != nil {
+		return nil, gorm_err.TranslateGormError(err)
+	}
+	return data, nil
 }
 
-func (s *squadService) UpdateSquad(id int64, input *models.Squad) (*models.Squad, error) {
-	existing, err := s.repo.FindSquadByID(id)
+func (s *squadService) UpdateSquad(id int64, updates map[string]interface{}) (*models.Squad, error) {
+	if _, err := s.repo.FindSquadByID(id); err != nil {
+		return nil, gorm_err.TranslateGormError(err)
+	}
+
+	updates["updated_at"] = time.Now()
+	fmt.Println(updates)
+
+	data, err := s.repo.UpdateSquad(id, updates)
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, errors.New("squad not found")
-		}
-		return nil, err
+		return nil, gorm_err.TranslateGormError(err)
 	}
-
-	if input.Name != "" {
-		existing.Name = input.Name
-	}
-	existing.UpdatedAt = time.Now()
-
-	return s.repo.UpdateSquads(existing)
+	return data, nil
 }
 
 func (s *squadService) DeleteSquad(id int64) error {
-	return s.repo.RemoveSquadByID(id)
+	err := s.repo.RemoveSquadByID(id)
+	return gorm_err.TranslateGormError(err)
 }
 
 func (s *squadService) GetAllSquads() ([]models.Squad, error) {
-	return s.repo.FindSquad()
+	data, err := s.repo.
+		WithPreloads("HasCaptain").FindSquad()
+
+	if err != nil {
+		return nil, gorm_err.TranslateGormError(err)
+	}
+	return data, nil
 }
 
 func (s *squadService) GetSquadByID(id int64) (*models.Squad, error) {
-	return s.repo.FindSquadByID(id)
+	data, err := s.repo.
+		WithPreloads("HasCaptain").FindSquadByID(id)
+
+	if err != nil {
+		return nil, gorm_err.TranslateGormError(err)
+	}
+	return data, nil
 }
