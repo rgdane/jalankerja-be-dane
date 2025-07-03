@@ -78,7 +78,7 @@ func (s *squadService) DeleteSquad(id int64) error {
 
 func (s *squadService) GetAllSquads() ([]models.Squad, error) {
 	data, err := s.repo.
-		WithPreloads("HasCaptain").FindSquad()
+		WithPreloads("HasCaptain", "ProjectSquad.HasProject").FindSquad()
 
 	if err != nil {
 		return nil, gorm_err.TranslateGormError(err)
@@ -88,7 +88,7 @@ func (s *squadService) GetAllSquads() ([]models.Squad, error) {
 
 func (s *squadService) GetSquadByID(id int64) (*models.Squad, error) {
 	data, err := s.repo.
-		WithPreloads("HasCaptain").FindSquadByID(id)
+		WithPreloads("HasCaptain", "ProjectSquad.HasProject").FindSquadByID(id)
 
 	if err != nil {
 		return nil, gorm_err.TranslateGormError(err)

@@ -73,7 +73,7 @@ func (repo *squadRepository) FindSquad() ([]models.Squad, error) {
 	var items []models.Squad
 	db := repo.applyPreloads(repo.db.Model(&models.Squad{}))
 
-	if err := db.Find(&items).Error; err != nil {
+	if err := db.Order("created_at ASC").Find(&items).Error; err != nil {
 		return nil, err
 	}
 

@@ -16,6 +16,10 @@ func CreateSquadDtoToModel(dto *dto.CreateSquadDto) (*models.Squad, error) {
 		Name: dto.Name,
 	}
 
+	if dto.Description != nil {
+		data.Description = *dto.Description
+	}
+
 	return data, nil
 }
 

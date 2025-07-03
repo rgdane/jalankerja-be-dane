@@ -12,7 +12,8 @@ type Squad struct {
 	CreatedAt   time.Time `gorm:"column:created_at" json:"created_at,omitempty"`
 	UpdatedAt   time.Time `gorm:"column:updated_at;autoUpdateTime" json:"updated_at"`
 
-	HasCaptain *User `gorm:"foreignKey:Captain;references:ID" json:"has_captain"`
+	HasCaptain   *User          `gorm:"foreignKey:Captain;references:ID" json:"has_captain"`
+	ProjectSquad []ProjectSquad `gorm:"foreignKey:SquadID;references:ID" json:"has_project"`
 }
 
 func (Squad) TableName() string {
